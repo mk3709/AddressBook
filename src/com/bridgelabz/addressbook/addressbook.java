@@ -1,18 +1,19 @@
 package com.bridgelabz.addressbook;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.LinkedList;
 public class addressbook{
-private String firstName;
-private String lastName;
-private String address;
-private String city;
-private String state;
-private String zip;
-private String phoneNumber;
-private String email;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String city;
+    private String state;
+    private String zip;
+    private String phoneNumber;
+    private String email;
 
-public addressbook(String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String email) {
+    public addressbook(String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -24,16 +25,29 @@ public addressbook(String firstName, String lastName, String address, String cit
     }
 
     public void displayContact()
-{
-    System.out.println("Name:"+firstName+" "+lastName);
-    System.out.println("Address"+address);
-    System.out.println("City:"+city);
-    System.out.println("State"+state);
-    System.out.println("Zip:"+zip);
-    System.out.println("Phone Number"+phoneNumber);
-    System.out.println("Email"+email);
-}
+    {
+        System.out.println("Name:"+firstName+" "+lastName);
+        System.out.println("Address"+address);
+        System.out.println("City:"+city);
+        System.out.println("State"+state);
+        System.out.println("Zip:"+zip);
+        System.out.println("Phone Number"+phoneNumber);
+        System.out.println("Email"+email);
+    }
 
+    @Override
+    public String toString() {
+        return "addressbook{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip='" + zip + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 
     public static void main(String[] args) {
 
@@ -66,11 +80,14 @@ public addressbook(String firstName, String lastName, String address, String cit
 
         addressbook newContact = new addressbook(firstName, lastName, address, city, state, zip, phoneNumber, email);
 
+
+        System.out.println(newContact);
+
         newContact.displayContact();
+
         scanner.close();
     }
 
 
 }
-
 
