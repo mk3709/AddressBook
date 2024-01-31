@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+
 class ContactPerson {
     private String name;
     private String phoneNumber;
@@ -118,14 +119,15 @@ public class AddressBookMain {
                 case 1:
                     System.out.println("\nEnter details for a new contact:");
                     System.out.print("Name: ");
-                    String name = scanner.nextLine();
+                    String newName = scanner.nextLine();
                     System.out.print("Phone Number: ");
-                    String phoneNumber = scanner.nextLine();
+                    String newPhoneNumber = scanner.nextLine();
                     System.out.print("Email: ");
-                    String email = scanner.nextLine();
+                    String newEmail = scanner.nextLine();
 
-                    ContactPerson newContact = new ContactPerson(name, phoneNumber, email);
+                    ContactPerson newContact = new ContactPerson(newName, newPhoneNumber, newEmail);
                     addressBook.addContact(newContact);
+                    System.out.println("Contact added successfully.");
                     break;
                 case 2:
                     System.out.println("\nAddress Book Contents:");
@@ -140,11 +142,11 @@ public class AddressBookMain {
                     if (existingContactToEdit != null) {
                         System.out.println("\nExisting Contact Details:\n" + existingContactToEdit);
                         System.out.print("\nEnter new phone number: ");
-                        String newPhoneNumber = scanner.nextLine();
+                        String newPhoneNumberForEdit = scanner.nextLine();
                         System.out.print("Enter new email: ");
-                        String newEmail = scanner.nextLine();
+                        String newEmailForEdit = scanner.nextLine();
 
-                        addressBook.editContact(contactNameToEdit, newPhoneNumber, newEmail);
+                        addressBook.editContact(contactNameToEdit, newPhoneNumberForEdit, newEmailForEdit);
                     } else {
                         System.out.println("Contact not found.");
                     }
