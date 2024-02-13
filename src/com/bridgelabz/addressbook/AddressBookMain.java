@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-class ContactPerson {
-    private String firstName;
+class ContactPerson {private String firstName;
     private String lastName;
     private String address;
     private String city;
@@ -136,13 +136,6 @@ class AddressBook {
         }
     }
 
-    public void displayContacts() {
-        for (ContactPerson contact : contacts) {
-            System.out.println(contact);
-            System.out.println("----------------------");
-        }
-    }
-
     public ContactPerson findContactByName(String name) {
         for (ContactPerson contact : contacts) {
             if ((contact.getFirstName() + " " + contact.getLastName()).equalsIgnoreCase(name)) {
@@ -150,6 +143,13 @@ class AddressBook {
             }
         }
         return null;
+    }
+
+    public void displayContacts() {
+        for (ContactPerson contact : contacts) {
+            System.out.println(contact);
+            System.out.println("----------------------");
+        }
     }
 
     public void editContact(String name, String newPhoneNumber, String newEmail) {
@@ -175,6 +175,13 @@ class AddressBook {
         }
         System.out.println("Contact not found.");
     }
+
+    public List<ContactPerson> searchPersonByCityOrState(String cityOrState)
+    {
+     return contacts.stream().filter(contact ->contact.getCity().equalsIgnoreCase(cityOrState)||contact.getState().equalsIgnoreCase(cityOrState)).collect(Collectors.toList());
+
+
+    }
 }
 
 public class AddressBookMain {
@@ -199,6 +206,21 @@ public class AddressBookMain {
         addressBooks.put(addressBookName, newAddressBook);
         System.out.println("New Address Book created successfully with the name: " + addressBookName);
     }
+
+    public void searchPersonByCityOrStateAcrossAddressBooks(String cityOrState) {
+        List<ContactPerson> searchResults = addressBooks.values().stream().flatMap(addAddressBook -> addAddressBook.searchPersonByCityOrState(cityOrState).stream()).collect(Collectors.toList());
+
+        if (searchResults.isEmpty())
+        {       System.out.println("No results found for the given city or state");
+    }
+        else
+        {
+            System.out.println("Search for the city or state"+cityOrState);
+            searchResults.forEach(System.out::println);
+        }
+    }
+
+
 
     public void operateAddressBook(String addressBookName) {
         AddressBook addressBook = addressBooks.get(addressBookName);
@@ -253,6 +275,9 @@ public class AddressBookMain {
                     String contactNameToEdit = scanner.nextLine();
                     ContactPerson existingContactToEdit = addressBook.findContactByName(contactNameToEdit);
 
+               ;
+
+
                     if (existingContactToEdit != null) {
                         System.out.println("\nExisting Contact Details:\n" + existingContactToEdit);
                         System.out.print("\nEnter new phone number: ");
@@ -288,7 +313,8 @@ public class AddressBookMain {
             System.out.println("\nMain Menu:");
             System.out.println("1. Add a new Address Book");
             System.out.println("2. Operate on an existing Address Book");
-            System.out.println("3. Exit");
+            System.out.println("3. Search for contacts in a specific city or state");
+            System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
@@ -304,6 +330,12 @@ public class AddressBookMain {
                     addressBookMain.operateAddressBook(addressBookName);
                     break;
                 case 3:
+
+                    System.out.print("Enter the city or state to search for contacts: ");
+                    String cityOrStateToSearch = scanner.nextLine();
+                    addressBookMain.searchPersonByCityOrStateAcrossAddressBooks(cityOrStateToSearch);
+                    break;
+                case 4:
                     System.out.println("Exiting the program.");
                     scanner.close();
                     System.exit(0);
