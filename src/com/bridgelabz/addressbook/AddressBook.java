@@ -53,6 +53,32 @@ class AddressBook {
 
     }
 
+
+    public void sortEnteriesByName()
+    {
+        Collections.sort(contacts, Comparator.comparing(contact -> contact.getFirstName() + " " + contact.getLastName()));
+
+    }
+
+    public void sortEntriesByNameUsingStreams()
+    {
+
+        contacts = contacts.stream()
+                .sorted(Comparator.comparing(contact -> contact.getFirstName() + " " + contact.getLastName()))
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public String toString() {
+   StringBuilder result = new StringBuilder();
+for(ContactPerson contact: contacts)
+{
+    result.append(contact).append("\n------------------\n");
+}
+ return  result.toString();
+    }
+
     public void displayContacts() {
         for (ContactPerson contact : contacts) {
             System.out.println(contact);
