@@ -91,6 +91,20 @@ class ContactPerson {
         this.email = email;
     }
 
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ContactPerson that = (ContactPerson) obj;
+        return (this.firstName + " " + this.lastName).equalsIgnoreCase(that.firstName + " " + that.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
+    }
+
+
+
     @Override
     public String toString() {
         return "Name: " + firstName + " " + lastName +
@@ -109,9 +123,17 @@ class AddressBook {
     public AddressBook() {
         this.contacts = new ArrayList<>();
     }
+    public boolean isDuplicate(ContactPerson contact) {
+        return contacts.contains(contact);
+    }
 
     public void addContact(ContactPerson contact) {
-        contacts.add(contact);
+        if (!isDuplicate(contact)) {
+            contacts.add(contact);
+            System.out.println("Contact added successfully.");
+        } else {
+            System.out.println("Duplicate entry. Contact with the same name already exists.");
+        }
     }
 
     public void displayContacts() {
