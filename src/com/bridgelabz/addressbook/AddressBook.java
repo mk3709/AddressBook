@@ -69,6 +69,64 @@ class AddressBook {
         return stateDictionary.getOrDefault(state,Collections.emptyList());
 
     }
+    public int  getContactCountByCity(String city)
+    {
+        return cityDictionary.getOrDefault(city,Collections.emptyList()).size();
+    }
+
+    public int getContactCountByState(String state)
+    {
+        return stateDictionary.getOrDefault(state,Collections.emptyList()).size();
+
+    }
+
+    public void displayContactByCity(String city)
+    {
+        List<ContactPerson> contactsInCity = cityDictionary.get(city);
+        if(contactsInCity!=null)
+        {
+            System.out.println("Contacts in "+city+":");
+            contactsInCity.forEach(System.out::println);
+        }
+        else
+        {
+            System.out.println("No contacts found"+city);
+        }
+
+
+
+    }
+    public void displayContactByState(String state)
+    {
+        List<ContactPerson> contactsInCity = cityDictionary.get(state);
+        if(contactsInCity!=null)
+        {
+            System.out.println("Contacts in "+state+":");
+            contactsInCity.forEach(System.out::println);
+        }
+        else
+        {
+            System.out.println("No contacts found"+state);
+        }
+
+
+
+    }
+
+
+
+public Map<String,Long> countContactsByCity()
+{
+    return cityDictionary.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,entry ->(long)entry.getValue().size()));
+}
+
+
+    public Map<String,Long> countContactsByState()
+    {
+        return stateDictionary.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,entry ->(long)entry.getValue().size()));
+    }
+
+
 
     public void editContact(String name, String newPhoneNumber, String newEmail) {
         ContactPerson contact = findContactByName(name);

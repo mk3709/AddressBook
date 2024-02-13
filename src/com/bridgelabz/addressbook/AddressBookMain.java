@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBookMain {
-    private Map<String, AddressBook> addressBooks;  // Map to store Address Books by name
+    private Map<String, AddressBook> addressBooks;
     private Scanner scanner;
 
     public AddressBookMain() {
@@ -29,6 +29,7 @@ public class AddressBookMain {
         System.out.println("New Address Book created successfully with the name: " + addressBookName);
     }
 
+
     public void searchPersonByCityOrStateAcrossAddressBooks(String cityOrState) {
         List<ContactPerson> searchResults = addressBooks.values().stream().flatMap(addAddressBook -> addAddressBook.searchPersonByCityOrState(cityOrState).stream()).collect(Collectors.toList());
 
@@ -41,7 +42,6 @@ public class AddressBookMain {
             searchResults.forEach(System.out::println);
         }
     }
-
 
 
 
@@ -58,7 +58,11 @@ public class AddressBookMain {
             System.out.println("2. Display all contacts");
             System.out.println("3. Edit a contact");
             System.out.println("4. Delete a contact");
-            System.out.println("5. Back to main menu");
+            System.out.println("5. Display contacts by City");
+            System.out.println("6. Display contacts by State");
+            System.out.println("7.Display counts by City");
+            System.out.println("8.Display count by State");
+            System.out.println("9. Back to main menu");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
@@ -120,6 +124,30 @@ public class AddressBookMain {
                     addressBook.deleteContact(contactNameToDelete);
                     break;
                 case 5:
+                    System.out.println("Enter the city to display contacts");
+                    String cityToDisplay =scanner.nextLine();
+                    addressBook.displayContactByCity(cityToDisplay);
+
+
+                case 6:
+                    System.out.println("Enter the state to display contacts");
+                    String stateToDisplay =scanner.nextLine();
+                    addressBook.displayContactByCity(stateToDisplay);
+                    break;
+
+                    case 7:
+                        Map<String,Long> contactsByCityCount=addressBook.countContactsByCity();
+                        System.out.println("Contacts count by city");
+                        contactsByCityCount.forEach((citykey,count)-> System.out.println(citykey+""+count));
+                        break;
+
+
+                    case 8:
+                        Map<String,Long> contactsByStateCount=addressBook.countContactsByCity();
+                        System.out.println("Contacts count by city");
+                        contactsByStateCount.forEach((statekey,count)-> System.out.println(statekey+""+count));
+
+                    case 9:
                     System.out.println("Returning to the main menu.");
                     return;
                 default:
