@@ -146,6 +146,10 @@ public Map<String,Long> countContactsByCity()
     return cityDictionary.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,entry ->(long)entry.getValue().size()));
 }
 
+    public void sortEntriesByCity() {
+        Collections.sort(contacts, Comparator.comparing(ContactPerson::getCity));
+    }
+
 
     public Map<String,Long> countContactsByState()
     {
@@ -183,4 +187,33 @@ public Map<String,Long> countContactsByCity()
 
 
     }
+    public void sortEntriesByState() {
+        Collections.sort(contacts, Comparator.comparing(ContactPerson::getState));
+    }
+
+    public void sortEntriesByZip() {
+        Collections.sort(contacts, Comparator.comparing(ContactPerson::getZip));
+    }
+
+    public void sortEntriesByCityUsingStreams() {
+        contacts = contacts.stream()
+                .sorted(Comparator.comparing(ContactPerson::getCity))
+                .collect(Collectors.toList());
+    }
+
+    public void sortEntriesByStateUsingStreams() {
+        contacts = contacts.stream()
+                .sorted(Comparator.comparing(ContactPerson::getState))
+                .collect(Collectors.toList());
+    }
+
+    public void sortEntriesByZipUsingStreams() {
+        contacts = contacts.stream()
+                .sorted(Comparator.comparing(ContactPerson::getZip))
+                .collect(Collectors.toList());
+    }
+
+
+
+
 }

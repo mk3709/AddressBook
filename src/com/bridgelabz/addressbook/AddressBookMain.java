@@ -61,6 +61,7 @@ public class AddressBookMain {
             System.out.println("6. Display contacts by State");
             System.out.println("7.Display counts by City");
             System.out.println("8.Display count by State");
+            System.out.println("9.Display sorted by Zip");
             System.out.println("9. Back to main menu");
             System.out.print("Enter your choice: ");
 
@@ -104,7 +105,8 @@ public class AddressBookMain {
                     String contactNameToEdit = scanner.nextLine();
                     ContactPerson existingContactToEdit = addressBook.findContactByName(contactNameToEdit);
 
-               ;
+
+
 
 
                     if (existingContactToEdit != null) {
@@ -125,16 +127,28 @@ public class AddressBookMain {
                     String contactNameToDelete = scanner.nextLine();
                     addressBook.deleteContact(contactNameToDelete);
                     break;
+
                 case 5:
                     System.out.println("Enter the city to display contacts");
                     String cityToDisplay =scanner.nextLine();
                     addressBook.displayContactByCity(cityToDisplay);
+                    System.out.println("\nSorting entries by City...");
+                    addressBook.sortEntriesByCity();
+                    System.out.println("\nSorted Address Book Contents:");
+                    addressBook.displayContacts();
+
+
+                    break;
 
 
                 case 6:
                     System.out.println("Enter the state to display contacts");
                     String stateToDisplay =scanner.nextLine();
                     addressBook.displayContactByCity(stateToDisplay);
+                    System.out.println("\nSorting entries by State...");
+                    addressBook.sortEntriesByState(); // or use sortEntriesByStateUsingStreams()
+                    System.out.println("\nSorted Address Book Contents:");
+                    addressBook.displayContacts();
                     break;
 
                     case 7:
@@ -150,6 +164,13 @@ public class AddressBookMain {
                         contactsByStateCount.forEach((statekey,count)-> System.out.println(statekey+""+count));
 
                     case 9:
+                    System.out.println("\nSorting entries by Zip...");
+                    addressBook.sortEntriesByZip(); // or use sortEntriesByZipUsingStreams()
+                    System.out.println("\nSorted Address Book Contents:");
+                    addressBook.displayContacts();
+                    break;
+
+                    case 10:
                     System.out.println("Returning to the main menu.");
                     return;
                 default:
@@ -197,4 +218,5 @@ public class AddressBookMain {
             }
         }
     }
+
 }
