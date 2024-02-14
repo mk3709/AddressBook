@@ -93,6 +93,9 @@ public class AddressBookMain {
                     break;
                 case 2:
                     System.out.println("\nAddress Book Contents:");
+                    addressBook.sortEnteriesByName();
+                    System.out.println("\n Soreted Addresss Book");
+                    addressBook.displayContacts();
                     addressBook.displayContacts();
                     break;
                 case 3:
